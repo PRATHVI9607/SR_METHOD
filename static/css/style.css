@@ -25,97 +25,102 @@ body {
 }
 
 .container {
-    max-width: 1300px;
+    max-width: 1600px; /* Wider container for the new layout */
     margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem; /* Reduced gap */
 }
 
 header h1 {
     text-align: center;
     font-weight: 700;
-    font-size: 2.2rem;
+    font-size: 2rem; /* Slightly smaller title */
     color: var(--text-color-dark);
 }
 
-main { display: flex; flex-direction: column; gap: 2rem; }
+main { display: flex; flex-direction: column; gap: 1.5rem; }
 
-/* --- Card Styles (Neumorphic) --- */
-.card-grid {
+/* --- NEW: Main Dashboard Layout --- */
+.dashboard-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* Create two columns, with the graph being slightly larger */
+    grid-template-columns: 1.2fr 1fr; 
     gap: 2.5rem;
 }
 
+
+/* Card Styles */
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
 .card, .card-large {
     background: var(--card-bg);
     border-radius: var(--border-radius);
     padding: 1.5rem 2rem;
-    box-shadow: -10px -10px 20px var(--shadow-light), 
-                 10px 10px 20px var(--shadow-dark);
+    box-shadow: -9px -9px 16px var(--shadow-light), 
+                 9px 9px 16px var(--shadow-dark);
+    display: flex;
+    flex-direction: column; /* Ensure cards use flex layout */
 }
-
-.card:hover {
-    transform: translateY(-2px);
-    box-shadow: -4px -4px 10px var(--shadow-light), 
-                 4px 4px 10px var(--shadow-dark);
-}
-
-/* === NEW INSET STYLE === */
+.card:hover { transform: translateY(-2px); box-shadow: -4px -4px 10px var(--shadow-light), 4px 4px 10px var(--shadow-dark); }
 .inset-container {
     background: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 15px; /* Slightly smaller radius than the parent card */
-    box-shadow: inset 5px 5px 10px var(--shadow-dark), 
-                inset -5px -5px 10px var(--shadow-light);
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), 
+                inset -4px -4px 8px var(--shadow-light);
+    flex-grow: 1; /* Allows container to fill available space */
+    display: flex;
+    min-height: 0; /* Important for flex children */
 }
 
-/* --- Content Styles --- */
-h2 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-color-light);
-}
-
-.card p { font-size: 3rem; font-weight: 700; margin: 0; color: var(--text-color-dark); }
-.card p span { font-size: 1.5rem; font-weight: 600; color: var(--text-color-light); margin-left: 0.25rem; }
-.sub-status { display: block; margin-top: 0.75rem; color: var(--text-color-light); font-size: 0.9rem; }
+/* Content Styles */
+h2 { margin: 0 0 0.5rem 0; font-size: 0.9rem; text-transform: uppercase; color: var(--text-color-light); }
+.card p { font-size: 2.5rem; font-weight: 700; margin: 0; color: var(--text-color-dark); }
+.card p span { font-size: 1.25rem; font-weight: 600; color: var(--text-color-light); margin-left: 0.25rem; }
+.sub-status { display: block; margin-top: 0.5rem; color: var(--text-color-light); font-size: 0.9rem; }
 #system-status { color: var(--green-color); font-weight: 700; }
 #system-status.anomaly { color: var(--red-color); }
 
-/* --- Graph & Table --- */
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0 0.5rem; }
-.chart-container { position: relative; height: 40vh; min-height: 350px; }
-.table-container { max-height: 350px; overflow-y: auto; }
+/* Graph & Table Adjustments */
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+/* Ensure chart and table take up the full height of their container */
+.chart-container { height: 38vh; min-height: 320px; }
+.table-container { flex-grow: 1; overflow-y: auto; }
 table { width: 100%; border-collapse: collapse; }
-th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid rgba(163, 177, 198, 0.3); }
-/* Make table headers blend into the inset background */
-th { position: sticky; top: 0; background: transparent; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
-tbody tr:hover { background-color: rgba(255, 255, 255, 0.5); }
-tbody tr { background-color: transparent; } /* Ensure rows are transparent to show inset background */
+td { padding: 12px 15px; text-align: left; border-bottom: 1px solid rgba(163, 177, 198, 0.3); font-size: 0.9rem; }
 
-/* --- Buttons --- */
-.button-group { display: flex; gap: 1rem; }
-.btn {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    font-family: 'Poppins', sans-serif;
+/* === STICKY HEADER FIX === */
+th {
+    position: sticky;
+    top: -1px; /* The small offset prevents visual artifacts */
+    /* Add the background color to prevent content from overlapping */
+    background-color: var(--card-bg); 
+    padding: 12px 15px;
     font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: var(--transition-speed);
-    text-decoration: none;
-    display: inline-block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    text-align: left;
+    /* Add a border to visually separate it from scrolling content */
+    border-bottom: 2px solid rgba(163, 177, 198, 0.4); 
 }
-.btn-download { color: white; background: var(--blue-color); box-shadow: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light); }
+
+/* Button styles adjusted for space */
+.button-group { display: flex; gap: 0.5rem; }
+.btn {
+    padding: 8px 16px; border-radius: 8px; border: none; font-weight: 600; font-size: 0.85rem; cursor: pointer;
+    transition: var(--transition-speed); text-decoration: none; display: inline-block; white-space: nowrap;
+}
+.btn-download { color: white; background: var(--blue-color); box-shadow: 3px 3px 8px var(--shadow-dark), -3px -3px 8px var(--shadow-light); }
 .btn-download:hover { box-shadow: 2px 2px 5px var(--shadow-dark), -2px -2px 5px var(--shadow-light); }
 .btn-download:active { box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light); }
-.btn-clear { color: var(--red-color); background: var(--card-bg); box-shadow: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light); }
+.btn-clear { color: var(--red-color); background: var(--card-bg); box-shadow: 3px 3px 8px var(--shadow-dark), -3px -3px 8px var(--shadow-light); }
 .btn-clear:hover { box-shadow: 2px 2px 5px var(--shadow-dark), -2px -2px 5px var(--shadow-light); }
 .btn-clear:active { color: white; background: var(--red-color); box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light); }
+
+/* --- Responsiveness --- */
+/* For screens smaller than our two-column layout can support, stack them */
+@media (max-width: 1400px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr; /* Stack graph and table vertically */
+    }
+}
