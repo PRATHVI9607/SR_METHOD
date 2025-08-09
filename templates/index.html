@@ -14,64 +14,38 @@
         <header>
             <h1>SR Method Live Monitor</h1>
         </header>
-
         <main>
-            <!-- Top Card Grid - This remains the same -->
             <div class="card-grid">
-                <div class="card card-temp">
-                    <h2>Temperature</h2>
-                    <p id="temp-value">--.-<span>&deg;C</span></p>
-                </div>
+                <div class="card card-temp"><p id="temp-value">--.-<span>&deg;C</span></p></div>
                 <div class="card card-water">
-                    <h2>Water Level</h2>
                     <p id="water-level-value">--<span>%</span></p>
                     <span class="sub-status" id="pump-status">Pump Status: ---</span>
                 </div>
                 <div class="card card-status">
-                    <h2>System Status</h2>
                     <p id="system-status">---</p>
                     <span class="sub-status" id="vibration-value">Vibration Value: ---</span>
                 </div>
             </div>
-
-            <!-- NEW: Main content layout to hold graph and table side-by-side -->
-            <div class="dashboard-layout">
-                <!-- Card for the live analysis graph -->
-                <div class="card-large">
-                    <div class="card-header">
-                        <h2>Live Data Analysis</h2>
-                    </div>
-                    <div class="inset-container chart-container">
-                        <canvas id="live-chart"></canvas>
+            <div class="card-large">
+                <div class="card-header"><h2>Live Data Analysis</h2></div>
+                <div class="inset-container chart-container"><canvas id="live-chart"></canvas></div>
+            </div>
+            <div class="card-large">
+                <div class="card-header">
+                    <h2>Event Log</h2>
+                    <div class="button-group">
+                        <a href="/download_csv" class="btn btn-download">Download</a>
+                        <button class="btn btn-clear" id="clear-log-btn">Clear</button>
                     </div>
                 </div>
-
-                <!-- Card for the event log table -->
-                <div class="card-large">
-                    <div class="card-header">
-                        <h2>Event Log</h2>
-                        <div class="button-group">
-                            <a href="/download_csv" class="btn btn-download">Download</a>
-                            <button class="btn btn-clear" id="clear-log-btn">Clear</button>
-                        </div>
-                    </div>
-                    <div class="inset-container">
-                        <div class="table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Timestamp</th>
-                                        <th>Temp (°C)</th>
-                                        <th>Level (%)</th>
-                                        <th>Pump</th>
-                                        <th>Anomaly</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="event-log-body">
-                                    <!-- Data rows will be injected here -->
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="inset-container">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr><th>Timestamp</th><th>Temp (°C)</th><th>Level (%)</th><th>Pump</th><th>Anomaly</th></tr>
+                            </thead>
+                            <tbody id="event-log-body"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
