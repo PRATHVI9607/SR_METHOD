@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SR Method Live Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SR Method Live Monitor</h1>
+        </header>
+
+        <main>
+            <!-- Card Grid is unchanged -->
+            <div class="card-grid">
+                <div class="card card-temp">
+                    <h2>Temperature</h2>
+                    <p id="temp-value">--.-<span>&deg;C</span></p>
+                </div>
+                <div class="card card-water">
+                    <h2>Water Level</h2>
+                    <p id="water-level-value">--<span>%</span></p>
+                    <span class="sub-status" id="pump-status">Pump Status: ---</span>
+                </div>
+                <div class="card card-status">
+                    <h2>System Status</h2>
+                    <p id="system-status">---</p>
+                    <span class="sub-status" id="vibration-value">Vibration Value: ---</span>
+                </div>
+            </div>
+
+            <!-- Card for the live analysis graph -->
+            <div class="card-large">
+                <div class="card-header">
+                    <h2>Live Data Analysis</h2>
+                </div>
+                <!-- NEW Inset Container for the graph -->
+                <div class="inset-container chart-container">
+                    <canvas id="live-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Card for the event log table -->
+            <div class="card-large">
+                <div class="card-header">
+                    <h2>Event Log</h2>
+                    <div class="button-group">
+                        <a href="/download_csv" class="btn btn-download">Download CSV Log</a>
+                        <button class="btn btn-clear" id="clear-log-btn">Clear Log</button>
+                    </div>
+                </div>
+                <!-- NEW Inset Container for the table -->
+                <div class="inset-container">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Temp (°C)</th>
+                                    <th>Level (%)</th>
+                                    <th>Pump</th>
+                                    <th>Anomaly</th>
+                                </tr>
+                            </thead>
+                            <tbody id="event-log-body">
+                                <!-- Data rows will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
