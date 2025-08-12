@@ -64,8 +64,8 @@ all: main-build
 main-build: srm.elf secondary-outputs
 
 # Tool invocations
-srm.elf srm.map: $(OBJS) $(USER_OBJS) C:\Users\ab32a\Desktop\srm\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "srm.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\ab32a\Desktop\srm\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="srm.map" -Wl,--gc-sections -static -L"C:\Users\ab32a\Desktop\srm\nano\src" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+srm.elf srm.map: $(OBJS) $(USER_OBJS) C:\Users\raksh\OneDrive\Documents\Arduino\SR_METHOD\srm\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "srm.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\raksh\OneDrive\Documents\Arduino\SR_METHOD\srm\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="srm.map" -Wl,--gc-sections -static -L"C:\Users\raksh\OneDrive\Documents\Arduino\SR_METHOD\srm\nano\src" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

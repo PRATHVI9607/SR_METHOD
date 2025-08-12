@@ -9,8 +9,8 @@ class Config:
     # Update this with your STM32's serial port and baud rate.
     # Windows: 'COM3', 'COM4', etc.
     # Linux/macOS: '/dev/ttyACM0', '/dev/tty.usbmodem...', etc.
-    SERIAL_PORT = 'COM3'
-    BAUD_RATE = 9600
+    SERIAL_PORT = 'COM8'
+    BAUD_RATE = 115200
 
     # --- CSV File Configuration ---
     CSV_FILE = 'event_log.csv'

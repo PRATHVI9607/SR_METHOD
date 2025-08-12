@@ -41,15 +41,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_macro  00024f57  00000000  00000000  00023fb9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_line   00016cf7  00000000  00000000  00048f10  2**0
+ 19 .debug_line   00016d14  00000000  00000000  00048f10  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_str    000d3d2f  00000000  00000000  0005fc07  2**0
+ 20 .debug_str    000d3d4c  00000000  00000000  0005fc24  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .comment      00000087  00000000  00000000  00133936  2**0
+ 21 .comment      00000087  00000000  00000000  00133970  2**0
                   CONTENTS, READONLY
- 22 .debug_frame  00004868  00000000  00000000  001339c0  2**2
+ 22 .debug_frame  00004868  00000000  00000000  001339f8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 23 .debug_line_str 00000049  00000000  00000000  00138228  2**0
+ 23 .debug_line_str 00000066  00000000  00000000  00138260  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -2517,12 +2517,12 @@ int main(void)
  8001608:	4827      	ldr	r0, [pc, #156]	@ (80016a8 <main+0x1d0>)
  800160a:	f7ff fce9 	bl	8000fe0 <usb_printf>
 
-      if (percent < (float)WATER_LOW_THRESHOLD_PERCENT) {
+      if (percent > (float)WATER_LOW_THRESHOLD_PERCENT) {
  800160e:	edd7 7a04 	vldr	s15, [r7, #16]
  8001612:	eeb3 7a04 	vmov.f32	s14, #52	@ 0x41a00000  20.0
  8001616:	eef4 7ac7 	vcmpe.f32	s15, s14
  800161a:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 800161e:	d505      	bpl.n	800162c <main+0x154>
+ 800161e:	dd05      	ble.n	800162c <main+0x154>
         pump_on();
  8001620:	f7ff ff42 	bl	80014a8 <pump_on>
         usb_printf("Pump ON\r\n");

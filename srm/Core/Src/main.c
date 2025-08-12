@@ -368,7 +368,7 @@ int main(void)
       if (percent > 100.0f) percent = 100.0f;
       usb_printf("WaterLevel,%u,%.2f%%\r\n", wl, percent);
 
-      if (percent < (float)WATER_LOW_THRESHOLD_PERCENT) {
+      if (percent > (float)WATER_LOW_THRESHOLD_PERCENT) {
         pump_on();
         usb_printf("Pump ON\r\n");
       } else {

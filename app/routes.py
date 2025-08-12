@@ -2,15 +2,29 @@
 from flask import render_template, send_file, Blueprint, current_app, jsonify
 from . import socketio, csv_manager
 
-# A Blueprint is a way to organize a group of related views and other code.
 main_bp = Blueprint('main', __name__)
 
 # --- WEB PAGE ROUTES ---
 
 @main_bp.route('/')
 def index():
-    """Renders the main dashboard page."""
-    return render_template('index.html')
+    """
+    Renders the main dashboard page.
+    --- NEW ---
+    Fetches the last 10 events from the CSV to display on page load.
+    """
+    config = current_app.config
+    # Get the last 10 rows, excluding the header
+    log_data = csv_manager.get_last_n_rows(config['CSV_FILE'], 11)
+    if log_data and log_data[0] == config['CSV_HEADER']:
+        last_10_events = log_data[1:] # Exclude header if present
+    else:
+        last_10_events = log_data
+
+    # Reverse the list so the most recent item is first
+    last_10_events.reverse()
+    
+    return render_template('index.html', initial_events=last_10_events)
 
 # --- API AND DATA ROUTES ---
 
@@ -28,7 +42,6 @@ def clear_log():
     """HTTP endpoint to clear the event log."""
     config = current_app.config
     if csv_manager.clear_csv(config['CSV_FILE'], config['CSV_HEADER']):
-        # Notify connected clients that the log has been cleared
         socketio.emit('log_cleared')
         return jsonify(status="success", message="Log cleared successfully.")
     else:
