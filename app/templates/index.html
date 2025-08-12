@@ -1,0 +1,109 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SR Method Live Monitor</title>
+    <!-- Professional Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Link to your CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <h1>SR Method Live Monitor</h1>
+            <p>Real-time system diagnostics and event logging.</p>
+        </header>
+
+        <!-- Top cards are now 'gauges' -->
+        <div class="gauges-container">
+            <div class="card">
+                <div class="card-icon">
+                    <!-- Thermometer Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 10.333a2.531 2.531 0 0 1-.9-4.907V3a1 1 0 1 1 2 0v2.426a2.531 2.531 0 0 1-.9 4.907zM15 12a1 1 0 0 1 1 1v5.333a2.667 2.667 0 1 1-5.333 0V13a1 1 0 0 1 1-1h3.333z"/></svg>
+                </div>
+                <div class="card-content">
+                    <h3>TEMPERATURE</h3>
+                    <p id="temp-value">--.- °C</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                     <!-- Water Level Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 2a9 9 0 0 0-9 9c0 4.95 4.05 9 9 9s9-4.05 9-9a9 9 0 0 0-9-9zm0 16a7 7 0 0 1-7-7c0-1.09.25-2.12.7-3.04l12.34 12.34A6.97 6.97 0 0 1 12 18z"/></svg>
+                </div>
+                <div class="card-content">
+                    <h3>WATER LEVEL</h3>
+                    <p id="level-value">-- %</p>
+                    <span id="pump-status">Pump Status: ---</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <!-- System Status/Vibration Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M3 12h3V6H3v6zm5 7h3v-4H8v4zm5-11h3V6h-3v2zm5 5h3v-2h-3v2zM8 8h3V6H8v2zM3 17h3v-3H3v3zm10 0h3v-4h-3v4z"/></svg>
+                </div>
+                <div class="card-content">
+                    <h3>SYSTEM STATUS</h3>
+                    <p id="vibration-value">Vibration: ---</p>
+                    <span id="anomaly-status">Status: ---</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collapsible Drawer Container -->
+        <div class="drawer-container">
+            <div class="drawer-header" id="drawer-header">
+                <h2>Live Analysis & Event Log</h2>
+                <span class="drawer-toggle-icon">▼</span>
+            </div>
+            <div class="drawer-content" id="drawer-content">
+                <div class="analysis-container card">
+                    <h3>Live Data Analysis</h3>
+                    <div class="chart-wrapper">
+                         <canvas id="live-chart"></canvas>
+                    </div>
+                </div>
+                <div class="log-container card">
+                    <div class="log-header">
+                        <h3>Event Log</h3>
+                        <div class="button-group">
+                            <a href="/download" class="btn btn-primary">Download Log</a>
+                            <button id="clear-log-btn" class="btn btn-danger">Clear Log</button>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="event-log-table">
+                            <thead>
+                                <tr>
+                                    <th>TIMESTAMP</th>
+                                    <th>TEMP (°C)</th>
+                                    <th>LEVEL (%)</th>
+                                    <th>PUMP</th>
+                                    <th>ANOMALY</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Log data will be dynamically inserted here by script.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 SR Method. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts remain the same, but now there's more to do -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
